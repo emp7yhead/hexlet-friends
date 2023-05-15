@@ -20,17 +20,15 @@ RUN apk add --no-cache \
     curl \
     gettext \
     git \
-    make 
+    make
 
 RUN curl -sSL https://install.python-poetry.org | python3 - \
     && poetry --version
 
-WORKDIR /project/
+WORKDIR /usr/local/src/hexlet-friends
 
-COPY pyproject.toml poetry.lock ./
+COPY . .
 
 RUN poetry install --extras psycopg2-binary
-
-WORKDIR /usr/local/src/hexlet-friends
 
 CMD ["make", "start"]
